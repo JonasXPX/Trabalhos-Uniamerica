@@ -6,8 +6,8 @@
 
 #define FIREBASE_HOST ""
 #define FIREBASE_AUTH ""
-#define WIFI_SSID "Campus Boulevard"
-#define WIFI_PASSWORD ""
+#define WIFI_SSID "NOME DO WIFI"
+#define WIFI_PASSWORD "SENHA DO WIFI"
 
 
 
@@ -38,7 +38,7 @@ void loop() {
 void sendData(String data){
   StaticJsonBuffer<200> doc;
   HTTPClient http;
-  String link = "http://10.35.215.140:8080/get.php?" + data;
+  String link = "http://localhost/get.php?" + data;
   Serial.print("Enviando link: ");
   Serial.println(link);
   http.begin(link);
