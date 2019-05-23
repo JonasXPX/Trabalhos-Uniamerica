@@ -1,23 +1,20 @@
-/*
-*
-*     Author: Jonas De Farias peretiatko
-*     Data de releace: 21.mai.2019  
-*
-*/
-
 #include <Adafruit_Fingerprint.h>
+
 #include <ESP8266HTTPClient.h>
 #include <Ethernet.h>
 #include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
                      //D5 D6
-SoftwareSerial serial(4, 3);
+SoftwareSerial serial(14, 12);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&serial);
 
-const int port = 8081; // PORTA DO SERVIDOR
-const String address = "IP_DO_SERVIDOR"; //IP DO SERVIDOR
-
-
+const int port = 8080;
+const String address = "10.35.220.87";
+/*
+* WiFiClient client;            // Use this for WiFi instead of EthernetClient
+* MySQL_Connection conn((Client *)&client);
+* IPAddress server_addr(10,35,221,161);
+*/
 void setup() {
   Serial.begin(9600);
   finger.begin(57600);
@@ -43,7 +40,7 @@ void setup() {
 
 void loop() {
   int saida = lerRegistro();
-  Serial.println(saida);
+  Serial.print("> " + String(saida));
   if(saida >= 1){
     int out = registrar(saida);
     Serial.print("Registro concluido, error code: ");
@@ -107,7 +104,7 @@ int lerRegistro(){
   }
   
   String retorno = http.getString();
-  http.end();
+  http.end(); 
   return retorno.toInt();
 }
 
